@@ -1,0 +1,5 @@
+import { Link } from 'react-router-dom'
+import { Star, ShoppingBag } from 'lucide-react'
+import { formatPrice } from '../data/products'
+import { useCart } from '../context/CartContext'
+export default function ProductCard({product}) { const {addItem}=useCart(); return <article className="product-card"><Link to={`/shop/${product.id}`} className="product-image"><img src={product.images[0]} alt={product.imageAlt}/>{product.newArrival&&<span className="pill">New arrival</span>}</Link><div className="product-info"><div className="product-meta"><span>{product.category}</span><span><Star size={13} fill="currentColor"/> {product.rating} ({product.reviews})</span></div><Link to={`/shop/${product.id}`}><h3>{product.name}</h3></Link><p>{product.shortDescription}</p><div className="price-row"><strong>{formatPrice(product.price)}</strong><span>{product.length}</span></div><div className="card-actions"><button onClick={()=>addItem(product)} disabled={!product.stock}><ShoppingBag size={17}/>{product.stock?'Add to bag':'Sold out'}</button><Link to={`/shop/${product.id}`}>Details</Link></div></div></article> }
